@@ -12,11 +12,11 @@ Claude Code plugin marketplace registry for plugins by [Nikola Reljin](https://g
 ## Add this marketplace
 
 ```
-/plugin marketplace add nikolareljin-plugins github:nikolareljin/claude-plugins
+/plugin marketplace add nikolareljin/claude-plugins
 ```
 
 Then install a plugin:
 
 ```
-/plugin install claude-reposec@nikolareljin-plugins
+/plugin install claude-reposec@claude-plugins
 ```
