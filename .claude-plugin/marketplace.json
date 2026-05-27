@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code plugins published by Nikola Reljin.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
@@ -23,9 +23,21 @@
       "homepage": "https://github.com/nikolareljin/claude-reposec",
       "repository": "https://github.com/nikolareljin/claude-reposec",
       "license": "MIT",
-      "keywords": ["security", "scanning", "secrets", "pii", "vulnerabilities", "claude-code"],
+      "keywords": [
+        "security",
+        "scanning",
+        "secrets",
+        "pii",
+        "vulnerabilities",
+        "claude-code"
+      ],
       "category": "Security",
-      "tags": ["security", "scanning", "git", "claude-code"]
+      "tags": [
+        "security",
+        "scanning",
+        "git",
+        "claude-code"
+      ]
     },
     {
       "name": "claude-docsmith",
@@ -41,9 +53,19 @@
       "homepage": "https://github.com/nikolareljin/claude-docsmith",
       "repository": "https://github.com/nikolareljin/claude-docsmith",
       "license": "MIT",
-      "keywords": ["claude-code", "documentation", "plugin", "ollama", "skill"],
+      "keywords": [
+        "claude-code",
+        "documentation",
+        "plugin",
+        "ollama",
+        "skill"
+      ],
       "category": "Developer Tools",
-      "tags": ["documentation", "developer-experience", "claude-code"]
+      "tags": [
+        "documentation",
+        "developer-experience",
+        "claude-code"
+      ]
     }
   ]
 }
