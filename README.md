@@ -18,5 +18,5 @@ Claude Code plugin marketplace registry for plugins by [Nikola Reljin](https://g
 Then install a plugin:
 
 ```
-/plugin install claude-reposec@claude-plugins
+/plugin install claude-reposec@nikolareljin-plugins
 ```
