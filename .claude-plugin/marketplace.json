@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code plugins published by Nikola Reljin.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
@@ -64,6 +64,36 @@
       "tags": [
         "documentation",
         "developer-experience",
+        "claude-code"
+      ]
+    },
+    {
+      "name": "claude-reelsmith",
+      "source": {
+        "source": "github",
+        "repo": "nikolareljin/claude-reelsmith"
+      },
+      "description": "Batch-finish a folder of video with Claude: enhance audio, stabilize, brand with a logo, and add news-style titles and captions.",
+      "author": {
+        "name": "Nikola Reljin",
+        "url": "https://github.com/nikolareljin"
+      },
+      "homepage": "https://nikolareljin.github.io/claude-reelsmith/",
+      "repository": "https://github.com/nikolareljin/claude-reelsmith",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "video",
+        "ffmpeg",
+        "media",
+        "plugin",
+        "skill"
+      ],
+      "category": "Media",
+      "tags": [
+        "video",
+        "ffmpeg",
+        "media",
         "claude-code"
       ]
     }
