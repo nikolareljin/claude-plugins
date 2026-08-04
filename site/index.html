@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nikolareljin Claude Code plugins</title>
+  <meta name="description" content="A focused marketplace of Claude Code plugins for documentation, repository security, and media finishing.">
+  <meta property="og:title" content="Nikolareljin Claude Code plugins">
+  <meta property="og:description" content="One marketplace. Focused tools for documentation, security, and media.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nikolareljin.github.io/claude-plugins/">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">nr/<span>claude-plugins</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#plugins">Plugins</a><a href="#install">Install</a>
+      <a class="optional" href="#ecosystem">Ecosystem</a>
+      <a href="https://github.com/nikolareljin/claude-plugins">GitHub</a>
+    </nav>
+  </div>
+</header>
+<main id="top">
+  <div class="hero wrap">
+    <p class="eyebrow">Claude Code marketplace</p>
+    <h1>Small tools. Serious workflows.</h1>
+    <p class="lede">Add one marketplace, then choose focused plugins for repository documentation, security review, and repeatable video finishing.</p>
+    <div class="actions"><a class="button primary" href="#install">Add the marketplace</a><a class="button" href="#plugins">Explore plugins</a></div>
+    <div class="signal" aria-label="Marketplace highlights">
+      <div><strong>one source</strong><span>One marketplace command for the whole suite.</span></div>
+      <div><strong>three plugins</strong><span>Install only the workflows your project needs.</span></div>
+      <div><strong>clear docs</strong><span>Every plugin has a dedicated guide and repository.</span></div>
+    </div>
+  </div>
+  <section id="plugins"><div class="wrap">
+    <div class="section-head"><p class="eyebrow">The plugin suite</p><h2>Pick a specialist.</h2><p>Each plugin owns one workflow and links to complete installation, prerequisites, and operating details.</p></div>
+    <div class="grid">
+      <article class="card suite-card"><span class="tag">Documentation</span><h3>Claude Docsmith</h3><p>Forge separate user and developer documentation tracks from a repository, with screenshot-aware guidance and optional CLI providers.</p><a href="https://nikolareljin.github.io/claude-docsmith/">Read the Docsmith guide →</a></article>
+      <article class="card suite-card"><span class="tag">Security</span><h3>Claude Reposec</h3><p>Scan code, history, dependencies, secrets, and PII with redacted findings and a CI-friendly standalone CLI.</p><a href="https://nikolareljin.github.io/claude-reposec/">Read the Reposec guide →</a></article>
+      <article class="card suite-card"><span class="tag">Media</span><h3>Claude Reelsmith</h3><p>Turn folders of raw footage into stabilized, branded, correctly-levelled deliverables through a guided FFmpeg workflow.</p><a href="https://nikolareljin.github.io/claude-reelsmith/">Read the Reelsmith guide →</a></article>
+    </div>
+  </div></section>
+  <section id="install"><div class="wrap">
+    <div class="section-head"><p class="eyebrow">Uniform installation</p><h2>One marketplace, then one plugin.</h2><p>Run these commands inside Claude Code. Adding the marketplace is a one-time user-level step.</p></div>
+    <div class="terminal"><div class="terminal-label">Claude Code</div><pre><code>/plugin marketplace add nikolareljin/claude-plugins
+
+/plugin install claude-docsmith@nikolareljin-plugins
+# or: claude-reposec / claude-reelsmith
+
+/plugin
+/reload-plugins</code></pre></div>
+    <p class="note">After installing, follow the product guide for companion CLI requirements and use the documented namespaced command. To refresh later, run <code>/plugin marketplace update nikolareljin-plugins</code>.</p>
+  </div></section>
+  <section id="ecosystem"><div class="wrap">
+    <div class="section-head"><p class="eyebrow">Related tooling</p><h2>Documentation automation beyond Claude Code.</h2></div>
+    <div class="grid">
+      <article class="card suite-card"><span class="tag">Standalone</span><h3>Docforge</h3><p>Generate developer and end-user documentation in GitHub Actions with multiple model providers and NotebookLM-ready output.</p><a href="https://nikolareljin.github.io/docforge/">Explore Docforge →</a></article>
+      <article class="card"><h3>Trust the source</h3><p>Plugins can run with your user privileges. Review each repository, prerequisites, privacy notes, and license before installing.</p></article>
+      <article class="card"><h3>Build the next one</h3><p>New plugins join the same marketplace and page system, keeping discovery and installation predictable as the suite grows.</p><a href="https://github.com/nikolareljin/claude-plugins">View the catalog →</a></article>
+    </div>
+  </div></section>
+</main>
+<footer><div class="wrap"><p>MIT-licensed tools maintained by Nikola Reljin.</p><div class="footer-links"><a href="https://github.com/nikolareljin/claude-plugins">Repository</a><a href="https://github.com/nikolareljin/claude-plugins/issues">Issues</a></div></div></footer>
+</body>
+</html>
