@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Claude Code plugins published by Nikola Reljin.",
-    "version": "1.2.0"
+    "version": "1.2.1"
   },
   "plugins": [
     {
@@ -20,7 +20,7 @@
         "name": "Nikola Reljin",
         "url": "https://github.com/nikolareljin"
       },
-      "homepage": "https://github.com/nikolareljin/claude-reposec",
+      "homepage": "https://nikolareljin.github.io/claude-reposec/",
       "repository": "https://github.com/nikolareljin/claude-reposec",
       "license": "MIT",
       "keywords": [
@@ -50,7 +50,7 @@
         "name": "Nikola Reljin",
         "url": "https://github.com/nikolareljin"
       },
-      "homepage": "https://github.com/nikolareljin/claude-docsmith",
+      "homepage": "https://nikolareljin.github.io/claude-docsmith/",
       "repository": "https://github.com/nikolareljin/claude-docsmith",
       "license": "MIT",
       "keywords": [
