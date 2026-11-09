@@ -6,14 +6,16 @@
   },
   "metadata": {
     "description": "Claude Code plugins published by Nikola Reljin.",
-    "version": "1.2.1"
+    "version": "1.3.0"
   },
   "plugins": [
     {
       "name": "claude-reposec",
       "source": {
         "source": "github",
-        "repo": "nikolareljin/claude-reposec"
+        "repo": "nikolareljin/claude-reposec",
+        "ref": "0.2.1",
+        "sha": "f78f72d3088280bf034af51470d2b2bb81cca0f5"
       },
       "description": "Deep security scanning for git repos: secrets, PII, vulnerabilities, git history, and dependency CVEs.",
       "author": {
@@ -43,7 +45,9 @@
       "name": "claude-docsmith",
       "source": {
         "source": "github",
-        "repo": "nikolareljin/claude-docsmith"
+        "repo": "nikolareljin/claude-docsmith",
+        "ref": "1.4.0",
+        "sha": "30776f754f13022890d052576ae95fc6eac5ac43"
       },
       "description": "Generate user and developer documentation from a repository using Claude Code, with optional local Ollama fallback.",
       "author": {
@@ -71,7 +75,9 @@
       "name": "claude-reelsmith",
       "source": {
         "source": "github",
-        "repo": "nikolareljin/claude-reelsmith"
+        "repo": "nikolareljin/claude-reelsmith",
+        "ref": "0.1.0",
+        "sha": "f431b9442fe16404b36da4c02e8274a351299d20"
       },
       "description": "Batch-finish a folder of video with Claude: enhance audio, stabilize, brand with a logo, and add news-style titles and captions.",
       "author": {
