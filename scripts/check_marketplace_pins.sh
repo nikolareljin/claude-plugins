@@ -10,7 +10,8 @@
 #   - .claude-plugin/plugin.json at that tag has version == source.ref
 #
 # Usage: scripts/check_marketplace_pins.sh [--offline] [path/to/marketplace.json]
-# Exit code: 0 when every entry passes, 1 on any failure, 2 on usage or tooling errors.
+# Exit code: 0 when every entry passes, 1 on any pin failure, 2 on usage or tooling
+# errors, including GitHub being unreachable when no pin failure was found.
 set -euo pipefail
 
 offline=0
@@ -18,7 +19,7 @@ manifest=""
 for arg in "$@"; do
   case "$arg" in
     --offline) offline=1 ;;
-    -h|--help) sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     -*) echo "unknown option: $arg" >&2; exit 2 ;;
     *) manifest="$arg" ;;
   esac
@@ -50,6 +51,11 @@ failures=0
 fail() {
   echo "FAIL: $*" >&2
   failures=$((failures + 1))
+}
+net_errors=0
+net_error() {
+  echo "ERROR: $*" >&2
+  net_errors=$((net_errors + 1))
 }
 
 count="$(jq -r '.plugins | if type == "array" then length else 0 end' "$manifest")"
@@ -89,7 +95,7 @@ for ((i = 0; i < count; i++)); do
 
   url="https://github.com/$repo"
   if ! refs="$(git ls-remote "$url" "refs/tags/$ref" "refs/tags/$ref^{}" 2>/dev/null)"; then
-    fail "$name: git ls-remote $url failed"
+    net_error "$name: git ls-remote $url failed (network or access error)"
     continue
   fi
   if [[ -z "$refs" ]]; then
@@ -107,8 +113,14 @@ for ((i = 0; i < count; i++)); do
   fi
 
   raw="https://raw.githubusercontent.com/$repo/$sha/.claude-plugin/plugin.json"
-  if ! plugin_json="$(curl -fsSL "$raw" 2>/dev/null)"; then
-    fail "$name: cannot fetch $raw"
+  curl_rc=0
+  plugin_json="$(curl -fsSL "$raw" 2>/dev/null)" || curl_rc=$?
+  if [[ "$curl_rc" -eq 22 ]]; then
+    # curl -f exit 22: the server answered with an HTTP error, e.g. 404 no plugin.json.
+    fail "$name: cannot fetch $raw (HTTP error)"
+    continue
+  elif [[ "$curl_rc" -ne 0 ]]; then
+    net_error "$name: cannot fetch $raw (curl exit $curl_rc)"
     continue
   fi
   plugin_version="$(jq -r '.version // ""' <<<"$plugin_json" 2>/dev/null || true)"
@@ -122,5 +134,9 @@ done
 if [[ "$failures" -gt 0 ]]; then
   echo "$failures failure(s) in $manifest" >&2
   exit 1
+fi
+if [[ "$net_errors" -gt 0 ]]; then
+  echo "$net_errors entry(ies) could not be checked in $manifest" >&2
+  exit 2
 fi
 echo "all $count plugin entries pinned"
