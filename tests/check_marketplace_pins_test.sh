@@ -66,6 +66,10 @@ expect 1 "relative path source" \
 expect 1 "empty plugins array" \
   "$(manifest '')"
 
+expect 1 "plugins is not an array" '{"name":"m","owner":{"name":"o"},"plugins":"nope"}'
+
+expect 1 "plugins key missing" '{"name":"m","owner":{"name":"o"}}'
+
 expect 1 "one good entry, one bad entry" \
   "$(manifest "$(entry "{\"source\":\"github\",\"repo\":\"o/r\",\"ref\":\"1.0.0\",\"sha\":\"$sha_ok\"}"),$(entry '{"source":"github","repo":"o/r2"}')")"
 

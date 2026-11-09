@@ -52,7 +52,7 @@ fail() {
   failures=$((failures + 1))
 }
 
-count="$(jq -r '.plugins | length' "$manifest")"
+count="$(jq -r '.plugins | if type == "array" then length else 0 end' "$manifest")"
 if [[ "$count" -eq 0 ]]; then
   fail "no plugin entries"
 fi
