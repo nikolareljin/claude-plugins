@@ -1,0 +1,35 @@
+name: Check marketplace
+
+on:
+  pull_request:
+    paths:
+      - ".claude-plugin/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/check-marketplace.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".claude-plugin/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/check-marketplace.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-marketplace-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pins:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unit tests (offline fixtures)
+        run: bash tests/check_marketplace_pins_test.sh
+      - name: Every entry pins a tag whose commit and plugin.json version match
+        run: bash scripts/check_marketplace_pins.sh
