@@ -58,6 +58,11 @@ net_error() {
   net_errors=$((net_errors + 1))
 }
 
+work="$(mktemp -d)"
+trap 'rm -rf "$work"' EXIT
+git_err="$work/git.err"
+body="$work/plugin.json"
+
 count="$(jq -r '.plugins | if type == "array" then length else 0 end' "$manifest")"
 if [[ "$count" -eq 0 ]]; then
   fail "no plugin entries"
@@ -94,8 +99,13 @@ for ((i = 0; i < count; i++)); do
   fi
 
   url="https://github.com/$repo"
-  if ! refs="$(git ls-remote "$url" "refs/tags/$ref" "refs/tags/$ref^{}" 2>/dev/null)"; then
-    net_error "$name: git ls-remote $url failed (network or access error)"
+  # GIT_TERMINAL_PROMPT=0: a missing repo must fail, not wait for credentials.
+  if ! refs="$(GIT_TERMINAL_PROMPT=0 git ls-remote "$url" "refs/tags/$ref" "refs/tags/$ref^{}" 2>"$git_err")"; then
+    if grep -qi 'repository not found\|repository .* not found' "$git_err"; then
+      fail "$name: repository $url not found"
+    else
+      net_error "$name: git ls-remote $url failed: $(tail -n 1 "$git_err")"
+    fi
     continue
   fi
   if [[ -z "$refs" ]]; then
@@ -114,15 +124,20 @@ for ((i = 0; i < count; i++)); do
 
   raw="https://raw.githubusercontent.com/$repo/$sha/.claude-plugin/plugin.json"
   curl_rc=0
-  plugin_json="$(curl -fsSL "$raw" 2>/dev/null)" || curl_rc=$?
-  if [[ "$curl_rc" -eq 22 ]]; then
-    # curl -f exit 22: the server answered with an HTTP error, e.g. 404 no plugin.json.
-    fail "$name: cannot fetch $raw (HTTP error)"
-    continue
-  elif [[ "$curl_rc" -ne 0 ]]; then
+  http_code="$(curl -sSL -o "$body" -w '%{http_code}' "$raw" 2>/dev/null)" || curl_rc=$?
+  if [[ "$curl_rc" -ne 0 ]]; then
     net_error "$name: cannot fetch $raw (curl exit $curl_rc)"
     continue
   fi
+  # Only 404 means the pinned commit has no plugin.json; 5xx and 429 are GitHub, not the pin.
+  if [[ "$http_code" == "404" ]]; then
+    fail "$name: no .claude-plugin/plugin.json at $sha (HTTP 404)"
+    continue
+  elif [[ "$http_code" != "200" ]]; then
+    net_error "$name: cannot fetch $raw (HTTP $http_code)"
+    continue
+  fi
+  plugin_json="$(cat "$body")"
   plugin_version="$(jq -r '.version // ""' <<<"$plugin_json" 2>/dev/null || true)"
   if [[ "$plugin_version" != "$ref" ]]; then
     fail "$name: plugin.json version '$plugin_version' at $sha does not match ref '$ref'"

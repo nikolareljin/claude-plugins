@@ -20,7 +20,7 @@ To move a plugin to a new release, set `ref` to the new tag and `sha` to its com
 git ls-remote https://github.com/nikolareljin/<plugin> 'refs/tags/<tag>^{}' 'refs/tags/<tag>'
 ```
 
-Use the `^{}` line when present (annotated tag), otherwise the plain tag line. Then run `bash scripts/check_marketplace_pins.sh`: it fails unless every entry has a `ref`, a 40-hex `sha` that matches the tag, and a `plugin.json` version equal to the tag. `bash tests/check_marketplace_pins_test.sh` runs the offline fixture tests. CI runs both on every pull request that touches the manifest, `scripts/`, or `tests/`.
+Use the `^{}` line when present (annotated tag), otherwise the plain tag line. Then run `bash scripts/check_marketplace_pins.sh`: it fails unless every entry has a `ref`, a 40-hex `sha` that matches the tag, and a `plugin.json` version equal to the tag. `bash tests/check_marketplace_pins_test.sh` runs the offline fixture tests. CI runs both on every pull request that touches the manifest, `scripts/`, or `tests/`, and weekly, to catch a tag moved in a plugin repository. Exit 1 is a pin failure; exit 2 means GitHub was unreachable (or returned 5xx/429) and no pin failure was found.
 
 ## Add this marketplace
 
